@@ -16,7 +16,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import se.rickylagerkvist.navigationdrawertest.R;
 import se.rickylagerkvist.navigationdrawertest.SlideShowFragment;
@@ -25,6 +24,8 @@ import se.rickylagerkvist.navigationdrawertest.ToolsFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    static final int REQUEST_IMAGE_CAPTURE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +52,7 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        // Add StartFragment, are later switched to other fragment with Drawer options
+        // Add StartFragment. Are later switched to other fragment with Drawer options
         StartFragment startFragment = new StartFragment();
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
@@ -99,9 +100,10 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-            // Handle the camera action
-            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            startActivity(intent);
+            // Handle camera
+            Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            startActivity(takePictureIntent);
+
 
         } else if (id == R.id.nav_gallery) {
             Intent intent = new Intent(this, GalleryActivity.class);
@@ -121,22 +123,29 @@ public class MainActivity extends AppCompatActivity
             // Run transaction
             transaction.commit();
 
-
+            // Set titel
+            getSupportActionBar().setTitle(item.getTitle());
 
         } else if (id == R.id.nav_manage) {
             // ToolsFragment
             ToolsFragment tools = new ToolsFragment();
-            FragmentManager manager2 = getSupportFragmentManager();
-            FragmentTransaction transaction2 = manager2.beginTransaction();
-            transaction2.replace(R.id.content_container, tools);
-            transaction2.addToBackStack(null);
-            transaction2.commit();
+            FragmentManager manager = getSupportFragmentManager();
+            FragmentTransaction transaction = manager.beginTransaction();
+            transaction.replace(R.id.content_container, tools);
+            transaction.addToBackStack(null);
+            transaction.commit();
+
+            // Set titel
+            getSupportActionBar().setTitle(item.getTitle());
 
         } else if (id == R.id.nav_share) {
-            Toast.makeText(MainActivity.this, "Haha det finns ingen funktionalitet här!", Toast.LENGTH_SHORT).show();
+            Snackbar.make(findViewById(R.id.content_container), "You clicked on Share", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();
+
 
         } else if (id == R.id.nav_send) {
-            Toast.makeText(MainActivity.this, "Haha det finns ingen funktionalitet här!", Toast.LENGTH_SHORT).show();
+            Snackbar.make(findViewById(R.id.content_container), "You clicked on Send", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();
 
         } else if (id == R.id.preferences) {
             Intent intent = new Intent(this, SettingsActivity.class);

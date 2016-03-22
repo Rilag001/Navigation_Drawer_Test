@@ -7,15 +7,14 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".ui.GalleryActivity"
-    tools:showIn="@layout/activity_second">
+    android:id="@+id/content_container_gallery"
+    tools:showIn="@layout/activity_gallary">
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:src="@drawable/money"
-        android:layout_alignParentEnd="false"
-        android:layout_alignParentStart="false"
+        android:contentDescription="@string/money"
         android:layout_alignParentTop="false"/>
-
 
 </RelativeLayout>
