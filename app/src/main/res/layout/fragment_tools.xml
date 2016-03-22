@@ -10,6 +10,6 @@
         android:layout_height="match_parent"
         android:textSize="35sp"
         android:textColor="@color/colorPrimary"
-        android:text="Tools"/>
+        android:text="Tools Fragment"/>
 
 </FrameLayout>
