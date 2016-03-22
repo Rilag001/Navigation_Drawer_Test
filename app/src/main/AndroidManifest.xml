@@ -19,8 +19,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.SecondActivity"
-            android:label="@string/title_activity_second"
+            android:name=".ui.GalleryActivity"
+            android:label="@string/title_activity_gallery"
             android:parentActivityName=".ui.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data

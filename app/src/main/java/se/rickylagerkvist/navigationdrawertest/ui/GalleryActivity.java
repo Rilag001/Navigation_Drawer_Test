@@ -9,7 +9,7 @@ import android.view.View;
 
 import se.rickylagerkvist.navigationdrawertest.R;
 
-public class SecondActivity extends AppCompatActivity {
+public class GalleryActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

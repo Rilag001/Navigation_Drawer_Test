@@ -6,6 +6,8 @@ import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -17,6 +19,9 @@ import android.view.View;
 import android.widget.Toast;
 
 import se.rickylagerkvist.navigationdrawertest.R;
+import se.rickylagerkvist.navigationdrawertest.SlideShowFragment;
+import se.rickylagerkvist.navigationdrawertest.StartFragment;
+import se.rickylagerkvist.navigationdrawertest.ToolsFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -45,6 +50,13 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        StartFragment startFragment = new StartFragment();
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.replace(R.id.content_container, startFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 
     @Override
@@ -91,29 +103,48 @@ public class MainActivity extends AppCompatActivity
             startActivity(intent);
 
         } else if (id == R.id.nav_gallery) {
-            Toast.makeText(MainActivity.this, "Haha, finns ingen funktionalitet här!", Toast.LENGTH_SHORT).show();
-
-        } else if (id == R.id.nav_slideshow) {
-            Intent intent = new Intent(this, SecondActivity.class);
+            Intent intent = new Intent(this, GalleryActivity.class);
             startActivity(intent);
 
+        } else if (id == R.id.slide_show) {
+            // SlideShowFragment
+            // 1. Create a SlideShowFragment
+            SlideShowFragment slideShow = new SlideShowFragment();
+            // 2. FragmentManager
+            FragmentManager manager = getSupportFragmentManager();
+            // 3. Start FragmentTransaction
+            FragmentTransaction transaction = manager.beginTransaction();
+            // 4. Set Action
+            transaction.replace(R.id.content_container, slideShow);
+            transaction.addToBackStack(null);
+            // Run transaction
+            transaction.commit();
+
+
+
         } else if (id == R.id.nav_manage) {
-            Toast.makeText(MainActivity.this, "Haha, asså så lättlurad! Finns fortfarande ingen funktionalitet här!", Toast.LENGTH_SHORT).show();
+            // ToolsFragment
+            ToolsFragment tools = new ToolsFragment();
+            FragmentManager manager2 = getSupportFragmentManager();
+            FragmentTransaction transaction2 = manager2.beginTransaction();
+            transaction2.replace(R.id.content_container, tools);
+            transaction2.addToBackStack(null);
+            transaction2.commit();
 
         } else if (id == R.id.nav_share) {
-            Toast.makeText(MainActivity.this, "Haha, att du inte lär dig, det finns ingen funktionalitet här!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, "Haha det finns ingen funktionalitet här!", Toast.LENGTH_SHORT).show();
 
         } else if (id == R.id.nav_send) {
-            Toast.makeText(MainActivity.this, "Är du dum på riktigt? Det finns ingen funktionalitet här!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, "Haha det finns ingen funktionalitet här!", Toast.LENGTH_SHORT).show();
 
         } else if (id == R.id.preferences) {
             Intent intent = new Intent(this, SettingsActivity.class);
             startActivity(intent);
         }
 
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 }
